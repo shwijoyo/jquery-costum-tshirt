@@ -477,14 +477,14 @@
 					<div class="cte-bg cte-action cte-none">
 					<div class="cte-wrap cte-clear">
 					<span class="cte-span cte-float-left">depth type</span>
-					<select class="cte-select cte-float-left"></select>
-					<input type="color" class="cte-color cte-float-right" />
+					<select class="cti-depthtype cte-select cte-float-left"></select>
+					<input type="color" class="cti-depthcolor cte-color cte-float-right" />
 					<span class="cte-span cte-float-right">depth color</span>
 					</div>
 					
 					<div class="cte-wrap cte-clear">
-					<input class="cte-80 cte-input cte-float-left" type="range" />
-					<input class="cte-20 cte-input cte-float-right" type="number" />
+					<input class="cti-depthwidth cte-80 cte-input cte-float-left" type="range" />
+					<input class="cti-depthwidth cte-20 cte-input cte-float-right" type="number" />
 					</div>
 					</div>
 					
@@ -1380,6 +1380,37 @@
 							editor.unredo.store(customTShirt.settings.data);
 							editor.render();
 							});
+					this.$main.find(".cti-depthcolor").on("input", function (){
+						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.depth.color = this.value;
+						customTShirt.render();
+						}).on("change", function (){
+							editor.unredo.store(customTShirt.settings.data);
+							editor.render();
+							});
+					this.$main.find(".cti-depthwidth").attr({min: 0, max: 15}).on("input", function (){
+						let value = Number(this.value);
+						let min = Number(this.min);
+						let max = Number(this.max);
+						if(value <= min){
+							value = min;
+							}
+						if(value >= max){
+							value = max;
+							}
+						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.depth.width = value;
+						customTShirt.render();
+						editor.$main.find(".cti-depthwidth").css({backgroundSize: `${((value)/(max-min))*100}% 100%`}).val(value);
+						}).on("change", function (){
+							customTShirt.render();
+							editor.unredo.store(customTShirt.settings.data);
+							editor.render();
+							});
+					this.$main.find(".cti-depthtype").on("change", function (){
+						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.depth.type = Number(this.value);
+						customTShirt.render();
+						editor.unredo.store(customTShirt.settings.data);
+						editor.render();
+						});
 					},
 				
 				render: function() {
@@ -1507,6 +1538,14 @@
 							this.$main.find(".cti-shadowposx").css({backgroundSize: `${((ctiShadowPosX+350)/700)*100}% 100%`}).val(ctiShadowPosX);
 							let ctiShadowPosY= customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.shadow.posY;
 							this.$main.find(".cti-shadowposy").css({backgroundSize: `${((ctiShadowPosY+350)/700)*100}% 100%`}).val(ctiShadowPosY);
+							this.$main.find(".cti-depthcolor").val(customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.depth.color);
+							let ctiDepthWidth = customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.depth.width;
+							this.$main.find(".cti-depthwidth").css({backgroundSize: `${((ctiDepthWidth)/15)*100}% 100%`}).val(ctiDepthWidth);
+							this.$main.find(".cti-depthtype").empty();
+							let ctiDepthType = customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.depth.type;
+								$.each(["Top-Left","Top","Top-Right", "Right", "Bottom-Right", "Bottom", "Bottom-Left", "Left"], function (i, v){
+									editor.$main.find(".cti-depthtype").append(`<option value="${i}" ${(i==ctiDepthType)?"selected disabled":""}>${v}</option>`);
+									});
 							if(customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].type == "text"){
 								this.$main.find(".cte-left").children().eq(0).addClass("cte-none");
 								this.$main.find(".cte-left").children().eq(1).removeClass("cte-none");
