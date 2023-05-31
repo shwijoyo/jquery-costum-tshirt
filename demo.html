@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+			<link href="./jquery.custom-tshirt.css" rel="stylesheet"></script>
+		</head>
+		<body>
+			
+				
+				<div class="custom-tshirt"></div>
+				
+				
+		</body>
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+		<script src="./jquery.custom-tshirt.js"></script>
+		<script src="./jquery.custom-tshirt-editor.js"></script>
+		<script>
+			
+			$(`.custom-tshirt`).customTShirtEditor({onSave: function (data){
+var jsonStr = JSON.stringify(data.canvas[data.key].layer);
+                    var element = document.createElement("a");
+                    element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(jsonStr));
+                    element.setAttribute(`download`, "data.json");
+                    element.style.display = "none";
+                    document.body.appendChild(element);
+                    element.click();
+                    document.body.removeChild(element);
+}});
+			
+			
+		</script>
+	</html>
