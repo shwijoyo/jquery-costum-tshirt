@@ -12,8 +12,8 @@
 					name: "front",
 					key: -1,
 					image: {
-						bottom: "image/dpn-bg.png", // "https://i.ibb.co/vvDg7QK/db.png",
-						top: "image/dpn.png" //"https://i.ibb.co/mXFPKLQ/dt.png",
+						bottom: "https://i.ibb.co/Pr9PMF5/dpn-bg.png",
+						top: "https://i.ibb.co/Xs5fjcq/dpn-min.png"
 						},
 					layer: [
 					
@@ -23,8 +23,8 @@
 					name: "back",
 					key: -1,
 					image: {
-						bottom: "image/blk-bg.png",
-						top: "image/blk.png",
+						bottom: "https://i.ibb.co/wBjMNGn/blk-bg.png",
+						top: "https://i.ibb.co/7gGQnc6/blk-min.png",
 						},
 					layer: []
 					}
