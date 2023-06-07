@@ -8,10 +8,11 @@
 			
 				
 				<div class="custom-tshirt"></div>
-				
+				<button onclick="console.log(document.getElementsByClassName('custom-tshirt')[0].innerHTML)">Button</button>
 				
 		</body>
 		<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+		<script src="./script/color-to-cssfilter.js"></script>
 		<script src="./jquery.custom-tshirt.js"></script>
 		<script src="./jquery.custom-tshirt-editor.js"></script>
 		<script>
@@ -26,6 +27,7 @@ var jsonStr = JSON.stringify(data.canvas[data.key].layer);
                     element.click();
                     document.body.removeChild(element);
 }});
+
 			
 			
 		</script>

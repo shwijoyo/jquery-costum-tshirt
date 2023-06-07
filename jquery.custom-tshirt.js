@@ -6,14 +6,14 @@
 			data: {
 				key: 0,
 				mockup: true,
-				color: "#00ffff",
+				color: "#ffffff",
 				canvas: [
 				{
 					name: "front",
 					key: -1,
 					image: {
-						bottom: "https://i.ibb.co/vvDg7QK/db.png",
-						top: "https://i.ibb.co/mXFPKLQ/dt.png",
+						bottom: "image/dpn-bg.png", // "https://i.ibb.co/vvDg7QK/db.png",
+						top: "image/dpn.png" //"https://i.ibb.co/mXFPKLQ/dt.png",
 						},
 					layer: [
 					
@@ -23,8 +23,8 @@
 					name: "back",
 					key: -1,
 					image: {
-						bottom: "https://i.ibb.co/ZhQ9DmM/tshirt-belakang-min.jpg",
-						top: "https://i.ibb.co/47P3zWX/tshirt-belakang.png",
+						bottom: "image/blk-bg.png",
+						top: "image/blk.png",
 						},
 					layer: []
 					}
@@ -42,6 +42,7 @@
 				this.$layers = $(`<div />`);
 				this.$imageBottom = $(`<div />`);
 				this.$imageTop = $(`<div />`);
+				this.ctf  = new ColorToCSSFilter();
 				this.initialize();
 				this.render();
 				
@@ -50,7 +51,7 @@
 				initialize: function (){
 					this.$main.css({position: `relative`, overflow: `hidden`, width: `${this.$original.width()}px`, height: `${this.$original.width()}px`}).appendTo(this.$original);
 					this.$wrap.css({position: `absolute`, fontSize: `1000px`, top: `${Number(this.$original.width() / 1000) <= 1 ? "-" + Number((1 - Number(this.$original.width() / 1000)) / 2) : Number((1 - Number(this.$original.width() / 1000)) / 2) * -1}em`, left: `${Number(this.$original.width() / 1000) <= 1 ? "-" + Number((1 - Number(this.$original.width() / 1000)) / 2) : Number((1 - Number(this.$original.width() / 1000)) / 2) * -1}em`, width: `1000px`, height: `1000px`, transform: `scale(${this.$original.width()/1000})`}).appendTo(this.$main);
-					this.$canvas.css({position: `absolute`, fontSize: `1000px`, width: `1000px`, height: `1000px`}).append(this.$color).append(this.$layers.css({perspective: `1000px`})).append(this.$imageBottom.css({mixBlendMode: `multiply`})).append(this.$imageTop).appendTo(this.$wrap).children("div").css({position: `absolute`, top: `0px`, left: `0px`, right: `0px`, bottom: `0px`, backgroundRepeat: `no-repeat`, backgroundPosition: `center center`, backgroundSize: `100% 100%`});
+					this.$canvas.css({position: `absolute`, fontSize: `1000px`, width: `1000px`, height: `1000px`}).append(this.$imageBottom).append(this.$color).append(this.$layers.css({perspective: `1000px`})).append(this.$imageTop.css({mixBlendMode: `multiply`})).appendTo(this.$wrap).children("div").css({position: `absolute`, top: `0px`, left: `0px`, right: `0px`, bottom: `0px`, backgroundRepeat: `no-repeat`, backgroundPosition: `center center`, backgroundSize: `100% 100%`});
 					
 					},
 				
@@ -67,7 +68,10 @@
 						}
 					},
 				color: function (){
-					this.$color.css({backgroundColor: settings.data.color});
+					let canvas = this;
+					
+					// this.$color.css({backgroundColor: settings.data.color, display: "none"});
+					this.$imageBottom.css({filter: `${canvas.ctf.convert(settings.data.color)} drop-shadow(-0.02em 0.02em 0.01em #999)`});
 					},
 				image: function (){
 					this.$imageBottom.css({backgroundImage: `url(${settings.data.canvas[settings.data.key].image.bottom})`});
@@ -168,7 +172,7 @@
 								height: `${settings.data.canvas[settings.data.key].layer[n].child.height}px`,
 								backgroundImage: `url('${settings.data.canvas[settings.data.key].layer[n].child.backgroundImage.url}') ${backgroundImageColor()}`,
 								transform: `rotate(${settings.data.canvas[settings.data.key].layer[n].child.transform.rotate}deg) skew(${settings.data.canvas[settings.data.key].layer[n].child.transform.skew}deg) scaleX(${settings.data.canvas[settings.data.key].layer[n].child.transform.scaleX}) scaleY(${settings.data.canvas[settings.data.key].layer[n].child.transform.scaleY})`,
-								filter: `${settings.data.canvas[settings.data.key].layer[n].child.filter.color.exist? `opacity(0.9) grayscale(100%) drop-shadow(0em 0em 0em ${settings.data.canvas[settings.data.key].layer[n].child.filter.color.main}) saturate(100)`:``} ${settings.data.canvas[settings.data.key].layer[n].child.filter.main} ${filterLine('stroke')} ${filterLine('outline')} ${filterDepth()} ${filterShadow()}`,
+								filter: `${settings.data.canvas[settings.data.key].layer[n].child.filter.color.exist? `brightness(0%) ${canvas.ctf.convert(settings.data.canvas[settings.data.key].layer[n].child.filter.color.main)}`:``} ${settings.data.canvas[settings.data.key].layer[n].child.filter.main} ${filterLine('stroke')} ${filterLine('outline')} ${filterDepth()} ${filterShadow()}`,
 								borderRadius: `${settings.data.canvas[settings.data.key].layer[n].child.borderRadius.posW}% ${settings.data.canvas[settings.data.key].layer[n].child.borderRadius.posX}% ${settings.data.canvas[settings.data.key].layer[n].child.borderRadius.posY}% ${settings.data.canvas[settings.data.key].layer[n].child.borderRadius.posZ}%`,
 								});
 						}
@@ -206,7 +210,7 @@
 								textStroke: `${(settings.data.canvas[settings.data.key].layer[n].child.filter.stroke.width / 1000).toFixed(3)}em ${settings.data.canvas[settings.data.key].layer[n].child.filter.stroke.color}`,
 								textAlign: `${settings.data.canvas[settings.data.key].layer[n].child.textAlign}`,
 								transform: `rotate(${settings.data.canvas[settings.data.key].layer[n].child.transform.rotate}deg) skew(${settings.data.canvas[settings.data.key].layer[n].child.transform.skew}deg) scaleX(${settings.data.canvas[settings.data.key].layer[n].child.transform.scaleX}) scaleY(${settings.data.canvas[settings.data.key].layer[n].child.transform.scaleY})`,
-								filter: `${settings.data.canvas[settings.data.key].layer[n].child.filter.color.exist? `opacity(0.9) grayscale(100%) drop-shadow(0em 0em 0em ${settings.data.canvas[settings.data.key].layer[n].child.filter.color.main}) saturate(100)`:``} ${settings.data.canvas[settings.data.key].layer[n].child.filter.main} ${filterLine('outline')} ${filterDepth()} ${filterShadow()}`,
+								filter: `${settings.data.canvas[settings.data.key].layer[n].child.filter.color.exist? `brightness(0%) ${canvas.ctf.convert(settings.data.canvas[settings.data.key].layer[n].child.filter.color.main)}`:``} ${settings.data.canvas[settings.data.key].layer[n].child.filter.main} ${filterLine('outline')} ${filterDepth()} ${filterShadow()}`,
 								borderBottom: `${(settings.data.canvas[settings.data.key].layer[n].child.borderBottom)?`0.1em solid ${settings.data.canvas[settings.data.key].layer[n].child.backgroundImage.color[settings.data.canvas[settings.data.key].layer[n].child.backgroundImage.color.length - 1]}`:`none`}`,
 								}).html(String(decodeURIComponent(settings.data.canvas[settings.data.key].layer[n].child.html)).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/\n/g, "<br>")).css({top: `-${$layer.children().outerHeight()/2}px`,left: `-${$layer.children().outerWidth()/2}px`,});
 							}
@@ -290,7 +294,7 @@
 										fontStyle: `${settings.data.canvas[settings.data.key].layer[n].child.font.style}`,
 										textStroke: `${(settings.data.canvas[settings.data.key].layer[n].child.filter.stroke.width / 1000).toFixed(3)}em ${settings.data.canvas[settings.data.key].layer[n].child.filter.stroke.color}`,
 										textAlign: `${settings.data.canvas[settings.data.key].layer[n].child.textAlign}`,
-										filter: `${settings.data.canvas[settings.data.key].layer[n].child.filter.color.exist? `opacity(0.9) grayscale(100%) drop-shadow(0em 0em 0em ${settings.data.canvas[settings.data.key].layer[n].child.filter.color.main}) saturate(100)`:``} ${settings.data.canvas[settings.data.key].layer[n].child.filter.main} ${filterLine('outline')} ${filterDepth()} ${filterShadow()}`,
+										filter: `${settings.data.canvas[settings.data.key].layer[n].child.filter.color.exist? `brightness(0%) ${canvas.ctf.convert(settings.data.canvas[settings.data.key].layer[n].child.filter.color.main)}`:``} ${settings.data.canvas[settings.data.key].layer[n].child.filter.main} ${filterLine('outline')} ${filterDepth()} ${filterShadow()}`,
 										}).css(curve.pointer[curve.data.type].pe, "-0.26em").html(v).appendTo($div2);
 									}
 								$.each(curve.text.start, function (i, v) {

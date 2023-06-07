@@ -86,14 +86,14 @@
 						};
 		let image = {
 						type: "image",
-						top: 300, // 0-1000
-						left: 380, //0-1000
+						top: 450, // 0-1000
+						left: 490, //0-1000
 						transform: {
 							rotateX: 0, // -90 - 90
 							rotateY: 0 // -90 - 90
 							},
 						child: {
-							width: 300, // 0-1000
+							width: 250, // 0-1000
 							height: 250, // 0-1000
 							opacity: 1, // 0-1 point 0.x
 							backgroundImage: {
@@ -506,7 +506,7 @@
 					let editor = this;
 					this.$main.find(".cti-color").on("input", function (){
 						customTShirt.settings.data.color = this.value;
-						customTShirt.render();
+						customTShirt.color();
 						}).on("change", function (){
 							editor.unredo.store(customTShirt.settings.data);
 							editor.render();
@@ -524,7 +524,7 @@
 						else{
 							customTShirt.settings.data.mockup = true;
 							}
-						customTShirt.render();
+						customTShirt.mockup();
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
@@ -677,7 +677,7 @@
 							customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.url = data.url;
 							customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.natural.width = data.width;
 							customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.natural.height = data.height;
-							customTShirt.render();
+							customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 							editor.unredo.store(customTShirt.settings.data);
 							editor.render();
 							});
@@ -686,7 +686,7 @@
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.url = ``;
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.natural.width = 300;
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.natural.height = 300;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
@@ -698,7 +698,7 @@
 						else{
 							customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.natural.exist = true;
 							}
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
@@ -714,7 +714,7 @@
 							}
 						
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.width = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-image-width").css({backgroundSize: `${(value/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -732,7 +732,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.height = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-image-height").css({backgroundSize: `${(value/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -750,7 +750,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.borderRadius.posW = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-image-borderRadius-posW").css({backgroundSize: `${(value/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -768,7 +768,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.borderRadius.posX = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-image-borderRadius-posX").css({backgroundSize: `${(value/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -786,7 +786,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.borderRadius.posY = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-image-borderRadius-posY").css({backgroundSize: `${(value/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -804,7 +804,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.borderRadius.posZ = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-image-borderRadius-posZ").css({backgroundSize: `${(value/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -815,7 +815,7 @@
 						editor.$main.find(".cti-text-fontfamily").googlefontpicker(function (data){
 							customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.font.family = data.family;
 							customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.font.source = data.src;
-							customTShirt.render();
+							customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 							editor.unredo.store(customTShirt.settings.data);
 							editor.render();
 							
@@ -825,13 +825,13 @@
 					this.$main.find(".cti-text-fontdelete").on("click", function (){
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.font.family = "";
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.font.source = "";
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
 					this.$main.find(".cti-text-html").on("input", function (){
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.html = this.value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						}).on("change", function (){
 							customTShirt.render();
 							editor.unredo.store(customTShirt.settings.data);
@@ -839,7 +839,7 @@
 							});
 					this.$main.find(".cti-text-align").on("change", function (){
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.textAlign = this.value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
@@ -851,7 +851,7 @@
 						else{
 							customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.borderBottom = true;
 							}
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
@@ -863,7 +863,7 @@
 						else{
 							customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.font.style = "none";
 							}
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
@@ -875,7 +875,7 @@
 						else{
 							customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.font.weight = "normal";
 							}
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
@@ -890,7 +890,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.font.size = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-text-fontsize").css({backgroundSize: `${(value/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -908,7 +908,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.letterSpacing = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-text-letterspacing").css({backgroundSize: `${((value+20)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -926,7 +926,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.lineHeight = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-text-lineheight").css({backgroundSize: `${((value-50)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -944,7 +944,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundSize.width = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-text-backgroundSizeWidth").css({backgroundSize: `${((value)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -962,7 +962,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundSize.height = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-text-backgroundSizeHeight").css({backgroundSize: `${((value)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -971,7 +971,7 @@
 							});
 					this.$main.find(".cti-text-curvetype").on("change", function (){
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.curve.type = Number(this.value);
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
@@ -986,7 +986,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.curve.degree = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-text-curvedegree").css({backgroundSize: `${((value)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1004,7 +1004,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.curve.round = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-text-curveround").css({backgroundSize: `${((value)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1022,7 +1022,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].top = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-top").css({backgroundSize: `${((value)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1040,7 +1040,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].left = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-left").css({backgroundSize: `${((value)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1049,19 +1049,19 @@
 							});
 					this.$main.find(".cti-filter").on("change", function (){
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.main = this.value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
 					this.$main.find(".cti-colortype").on("change", function (){
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.type = Number(this.value);
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
 					this.$main.find(".cti-colormain").on("input", function (){
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.color[customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.color.length-1] = this.value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						}).on("change", function (){
 							editor.unredo.store(customTShirt.settings.data);
 							editor.render();
@@ -1078,7 +1078,7 @@
 						}
 					this.$main.find(".cti-coloradd").on("click", function (){
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.color.push(invertColor(customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.color[customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.color.length-1]));
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
@@ -1090,13 +1090,13 @@
 						else{
 							customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.color.exist = true;
 							}
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
 					this.$main.find(".cti-filtercolormain").on("input", function (){
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.color.main = this.value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						}).on("change", function (){
 							editor.unredo.store(customTShirt.settings.data);
 							editor.render();
@@ -1112,7 +1112,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.opacity = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-opacity").css({backgroundSize: `${((value)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1130,7 +1130,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.linear.pos = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-linear").css({backgroundSize: `${((value+180)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1148,7 +1148,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.radial.posX = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-radialx").css({backgroundSize: `${((value)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1166,7 +1166,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.backgroundImage.radial.posY = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-radialy").css({backgroundSize: `${((value)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1184,7 +1184,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].transform.rotateX = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-rotatex").css({backgroundSize: `${((value+90)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1202,7 +1202,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].transform.rotateY = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-rotatey").css({backgroundSize: `${((value+90)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1217,7 +1217,7 @@
 						else{
 							customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.transform.scaleX = 1;
 							}
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
@@ -1229,7 +1229,7 @@
 						else{
 							customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.transform.scaleY = 1;
 							}
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
@@ -1244,7 +1244,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.transform.rotate = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-rotate").css({backgroundSize: `${((value+180)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1262,7 +1262,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.transform.skew = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-skew").css({backgroundSize: `${((value+88)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1271,7 +1271,7 @@
 							});
 					this.$main.find(".cti-strokecolor").on("input", function (){
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.stroke.color = this.value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						}).on("change", function (){
 							editor.unredo.store(customTShirt.settings.data);
 							editor.render();
@@ -1287,7 +1287,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.stroke.width = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-strokewidth").css({backgroundSize: `${((value)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1296,7 +1296,7 @@
 							});
 					this.$main.find(".cti-outlinecolor").on("input", function (){
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.outline.color = this.value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						}).on("change", function (){
 							editor.unredo.store(customTShirt.settings.data);
 							editor.render();
@@ -1312,7 +1312,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.outline.width = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-outlinewidth").css({backgroundSize: `${((value)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1321,7 +1321,7 @@
 							});
 					this.$main.find(".cti-shadowcolor").on("input", function (){
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.shadow.color = this.value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						}).on("change", function (){
 							editor.unredo.store(customTShirt.settings.data);
 							editor.render();
@@ -1337,7 +1337,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.shadow.blur = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-shadowblur").css({backgroundSize: `${((value)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1355,7 +1355,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.shadow.posX = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-shadowposx").css({backgroundSize: `${((value+350)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1373,7 +1373,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.shadow.posY = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-shadowposy").css({backgroundSize: `${((value+350)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1382,7 +1382,7 @@
 							});
 					this.$main.find(".cti-depthcolor").on("input", function (){
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.depth.color = this.value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						}).on("change", function (){
 							editor.unredo.store(customTShirt.settings.data);
 							editor.render();
@@ -1398,7 +1398,7 @@
 							value = max;
 							}
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.depth.width = value;
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.$main.find(".cti-depthwidth").css({backgroundSize: `${((value)/(max-min))*100}% 100%`}).val(value);
 						}).on("change", function (){
 							customTShirt.render();
@@ -1407,7 +1407,7 @@
 							});
 					this.$main.find(".cti-depthtype").on("change", function (){
 						customTShirt.settings.data.canvas[customTShirt.settings.data.key].layer[customTShirt.settings.data.canvas[customTShirt.settings.data.key].key].child.filter.depth.type = Number(this.value);
-						customTShirt.render();
+						customTShirt.layer(customTShirt.settings.data.canvas[customTShirt.settings.data.key].key);
 						editor.unredo.store(customTShirt.settings.data);
 						editor.render();
 						});
